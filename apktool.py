@@ -12,10 +12,14 @@ apktoolCLI = apktoolPath + apktool + " d -f "
 
 import os,log
 
+#TODO: Add support for custom output directory
+
 def __CheckConfig():
     '''
     Check for the configuration
     '''
+
+    # TODO: Add support for custom apktool configs
     if os.path.exists(apktoolPath + apktool):
         return
     print "ERROR: APKTool not configured properly or not installed"
@@ -24,7 +28,7 @@ def __ConfirmDisassembly():
     '''
     Confirm successful decompression of apk file
     '''
-    # Check if the smali files have been created
+    #TODO: Check if the smali files have been created
     pass
 
 def Disassemble(filepath):
@@ -33,7 +37,7 @@ def Disassemble(filepath):
     os.system("rm -rf temp;mkdir temp")
     os.system(apktoolCLI + " " + filepath + " temp")
     log.info("Decompiled resources written to Temp dir")
-    #Perform Disassembly... throw exception on error case
+    #Perform Disassembly... throw exception on error caser
     __ConfirmDisassembly()
 
 def CleanUpTempDir():

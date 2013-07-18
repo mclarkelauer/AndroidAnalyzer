@@ -2,3 +2,7 @@
 *.xml
 temp/*
 
+
+*.iml
+
+.idea/.name
