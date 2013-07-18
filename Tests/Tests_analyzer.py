@@ -9,7 +9,7 @@ __status__ = 'Development'
 import sys
 sys.path.append("../")
 
-import analyzer
+import pychecker.checker
 import unittest
 import os
 import DexScope
@@ -19,7 +19,7 @@ class TestSequenceAnalyzer(unittest.TestCase):
 
     def setUp(self):
         pass
-
+    """
     def test_AllBinFiles(self):
         print "*********** VERY LARGE TEST ****************"
         for d in os.listdir(self.testDir + "/AllBinaries"):
@@ -27,7 +27,7 @@ class TestSequenceAnalyzer(unittest.TestCase):
             print " TEST CASE : " + self.testDir + "/AllBinaries/" + d
             DexScope.RunDexScope( self.testDir + "/AllBinaries/" + d + "/classes.dex")
             print "**************************"
-
+    """
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestSequenceAnalyzer)

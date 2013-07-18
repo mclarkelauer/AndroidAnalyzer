@@ -46,8 +46,6 @@ adverts = {
     "Millennialmedia":"Millenial Media Advertising",
     }
 
-
-
 def is_valid_url(url):
     regex = re.compile(
         r'^https?://'  # http:// or https://
@@ -56,7 +54,13 @@ def is_valid_url(url):
         r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
         r'(?::\d+)?'  # optional port
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-    return url is not None and regex.search(url)
+    regex_nohttp = re.compile(
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'  # domain...
+        r'localhost|'  # localhost...
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
+        r'(?::\d+)?'  # optional port
+        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+    return url is not None and (regex.search(url) or regex_nohttp(url))
 
 def generateDependencyGraph(class_list):
     for cl in class_list:
@@ -220,6 +224,14 @@ def getConstStrings(classes):
                     conststrings.append(s)
     return conststrings
 
+def getUrls(classes):
+    constStrings = getConstStrings(classes)
+    urlStrings = []
+    for s in constStrings:
+        if is_valid_url(s):
+            urlStrings.append(s)
+    return s
+
 def usesFlurry(alldeps):
     for d in alldeps:
         if "flurry" in d:
@@ -242,6 +254,7 @@ def analyzeParsedSmali(classes):
     results["Uses Java Crypto Library"] = checksForJavaCryptoLib(internaldeps)
     results["Queries Device ID"] = queriesDevID(classes)
     results["Uses Flurry"] = usesFlurry(alldeps)
+    results["Const String URLs"] = getUrls(classes)
     #results["Constant Strings"] = getConstStrings(classes)
     log.saveLibrariesToPickle(alldeps)
     return results

@@ -7,25 +7,9 @@ __version__ = '0.1'
 __status__ = 'Development'
 
 import sys
-import os
-import fnmatch
 import traceback
-import re
 import log
-
-def find_files(directory, pattern):
-    """
-    Generic find files generator. recursively matches file names against
-    the pattern provided
-
-     @param directory : Root directory for search
-     @oaram patten : pattern to match file name
-    """
-    for root, dirs, files in os.walk(directory):
-        for basename in files:
-            if fnmatch.fnmatch(basename, pattern):
-                filename = os.path.join(root, basename)
-                yield filename
+import util
 
 def ParseSmaliCode(content):
     smali_class = {}
@@ -109,7 +93,7 @@ def parseDir(path):
     # set up class and results dictionary
     log.info("Performing recursive search for smali files")
     classes = {}
-    for smali in find_files(path,'*.smali'):
+    for smali in util.find_files(path,'*.smali'):
         log.info("Parsing " + smali)
         f = open(smali,'r')
         smali_class = ParseSmaliCode(f)

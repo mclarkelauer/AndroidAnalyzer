@@ -10,7 +10,8 @@ apktoolPath = "Resources/"
 apktool = "apktool"
 apktoolCLI = apktoolPath + apktool + " d -f "
 
-import os,log
+import os
+import log
 
 #TODO: Add support for custom output directory
 
@@ -29,7 +30,7 @@ def __ConfirmDisassembly():
     Confirm successful decompression of apk file
     '''
     #TODO: Check if the smali files have been created
-    pass
+    return True
 
 def Disassemble(filepath):
     __CheckConfig()
