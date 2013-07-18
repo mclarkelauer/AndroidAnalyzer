@@ -1,0 +1,30 @@
+String	ACCOUNTS	Permissions for direct access to the accounts managed by the Account Manager.
+String	AFFECTS_BATTERY	Used for permissions that provide direct access to the hardware on the device that has an effect on battery life.
+String	APP_INFO	Group of permissions that are related to the other applications installed on the system.
+String	AUDIO_SETTINGS	==================================================== Permissions related to changing audio settings ==================================================== Used for permissions that provide direct access to speaker settings the device.
+String	BLUETOOTH_NETWORK	Used for permissions that provide access to other devices through Bluetooth.
+String	BOOKMARKS	Used for permissions that provide access to the user bookmarks and browser history.
+String	CALENDAR	Used for permissions that provide access to the device calendar to create / view events.
+String	CAMERA	Used for permissions that are associated with accessing camera or capturing images/video from the device.
+String	COST_MONEY	Used for permissions that can be used to make the user spend money without their direct involvement.
+String	DEVELOPMENT_TOOLS	Group of permissions that are related to development features.
+String	DEVICE_ALARMS	Used for permissions that provide access to the user voicemail box.
+String	DISPLAY	Group of permissions that allow manipulation of how another application displays UI to the user.
+String	HARDWARE_CONTROLS	Used for permissions that provide direct access to the hardware on the device.
+String	LOCATION	Used for permissions that allow access to the user's current location.
+String	MESSAGES	Used for permissions that allow an application to send messages on behalf of the user or intercept messages being received by the user.
+String	MICROPHONE	Used for permissions that are associated with accessing microphone audio from the device.
+String	NETWORK	Used for permissions that provide access to networking services.
+String	PERSONAL_INFO	Used for permissions that provide access to information about the device user such as profile information.
+String	PHONE_CALLS	Used for permissions that are associated with accessing and modifyign telephony state: placing calls, intercepting outgoing calls, reading and modifying the phone state.
+String	SCREENLOCK	Group of permissions that are related to the screenlock.
+String	SOCIAL_INFO	Used for permissions that provide access to the user's social connections, such as contacts, call logs, social stream, etc.
+String	STATUS_BAR	==================================================== Permissions related to changing status bar ==================================================== Used for permissions that change the status bar
+String	STORAGE	Group of permissions that are related to SD card access.
+String	SYNC_SETTINGS	==================================================== Permissions related to accessing sync settings ==================================================== Used for permissions that access the sync settings or sync related information.
+String	SYSTEM_CLOCK	Group of permissions that are related to system clock.
+String	SYSTEM_TOOLS	Group of permissions that are related to system APIs.
+String	USER_DICTIONARY	Used for permissions that provide access to the user calendar to create / view events.
+String	VOICEMAIL	Used for permissions that provide access to the user voicemail box.
+String	WALLPAPER	Group of permissions that allow manipulation of how another application displays UI to the user.
+String	WRITE_USER_DICTIONARY	Used for permissions that provide access to the user calendar to create / view events.

@@ -1,0 +1,118 @@
+__author__ = 'Matt Clarke-Lauer'
+__email__ = 'mcl@ccs.neu.edu'
+__credits__ = ['Matt Clarke-Lauer']
+__date__ = 6 / 30 / 13
+
+__version__ = '0.1'
+__status__ = 'Development'
+
+import sys
+import os
+import fnmatch
+import traceback
+import re
+import log
+
+def find_files(directory, pattern):
+    """
+    Generic find files generator. recursively matches file names against
+    the pattern provided
+
+     @param directory : Root directory for search
+     @oaram patten : pattern to match file name
+    """
+    for root, dirs, files in os.walk(directory):
+        for basename in files:
+            if fnmatch.fnmatch(basename, pattern):
+                filename = os.path.join(root, basename)
+                yield filename
+
+def ParseSmaliCode(content):
+    smali_class = {}
+    smaliClassName = content.readline()
+    smali_class['ClassName'] = smaliClassName.split(' ')[-1][:-1]
+    smali_class['Keywords'] = smaliClassName.split(' ')[1:-1]
+    smali_class['Methods'] = []
+    smali_class['Fields'] = []
+    smali_class['Loader'] = []
+    #smali_class['Dependecies'] = []
+    #smali_class['Annotations'] = []
+    line = content.readline()
+    try:
+        while line:
+            if line.startswith('.super'):
+                smali_class['SuperClass'] = line.split(' ')[1][:-1]
+            elif line.startswith('.annotated'):
+                # TODO: Handle Annotations
+                # this may take more research into different types of annotations
+                pass
+            elif line.startswith('.source'):
+                smali_class['SourceFile'] = line.split(' ')[1][1:-2]
+            elif line.startswith('.implements'):
+                smali_class['Implements'] = line.split(' ')[1][:-1]
+            elif line.startswith('.field'):
+                field = {}
+                field['KeyWords'] = line.split('=')[0].split(' ')[1:-1]
+                field['Name'] = line.split('=')[0].rstrip().split(' ')[-1].split(':')[0]
+                field['Type'] = line.split('=')[0].rstrip().split(' ')[-1].split(':')[1][:-1]
+                smali_class['Fields'].append(field)
+                pass
+            elif line.startswith('.method'):
+                method = {}
+                method['MethodName'] = line.split(' ')[-1][:-1]
+                method['Keywords'] = line.split(' ')[1:-1]
+                method['Returns'] = line.split(')')[-1]
+                method['Parameters'] = line.split('(')[-1].split(')')[0]
+                smaliCode = []
+                method['Invokes'] = []
+                method['LibCalls'] = []
+                method['ConstStrings'] = []
+                method['Dependencies'] = []
+                #print  smali_class['ClassName'] + ":" + method['MethodName']
+                method['Code'] = []
+                method['Code'].append(line)
+                methodLine = content.readline().lstrip()
+                while not methodLine.startswith('.end method'):
+                    method['Code'].append(methodLine)
+                    if "ClassLoader" in methodLine:
+                        smali_class["Loader"].append(methodLine)
+                    invokes = {}
+                    if not methodLine == "\n":
+                        smaliCode += ''.join(methodLine)
+                    if methodLine.startswith('invoke'):
+                        invokes['Type'] = methodLine.split(' ')[0]
+                        invokes['Class'] = methodLine.split('}')[1][1:].split('-')[0]
+                        method['Dependencies'].append(methodLine.split('}')[1][1:].split('-')[0])
+                        invokes['Function'] = methodLine.split('}')[1].split('>')[1]
+                        if 'Ljava' in invokes['Class'] or \
+                            'Landroid' in invokes['Class'] or \
+                            'Ljavax' in invokes['Class']:
+                            method['LibCalls'].append(invokes)
+                        else:
+                            method['Invokes'].append(invokes)
+                    elif methodLine.startswith('const-string'):
+                        method['ConstStrings'].append(methodLine.split('"')[1])
+                    methodLine = content.readline().lstrip()
+                method['Code'].append(methodLine)
+                smali_class['Methods'].append(method)
+            else:
+                pass
+            line = content.readline()
+    except:
+        print line
+        tb = traceback.format_exc()
+        print tb
+        sys.exit(1)
+    return smali_class
+
+def parseDir(path):
+    # set up class and results dictionary
+    log.info("Performing recursive search for smali files")
+    classes = {}
+    for smali in find_files(path,'*.smali'):
+        log.info("Parsing " + smali)
+        f = open(smali,'r')
+        smali_class = ParseSmaliCode(f)
+        classes[smali_class['ClassName']] = smali_class
+    log.info("Parsing Complete")
+    return classes

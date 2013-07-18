@@ -1,0 +1,41 @@
+# Project Notes
+
+## Reference Materials
+
+[Dalvik Opcodes]
+[Dex File Format]
+
+### Smali Return Types
+V	 void
+Z	 boolean
+B	 byte
+S	 short
+C	 char
+I	 int
+J	 long (64 bits)
+F	 float
+D	 double (64 bits)
+
+
+
+[Dalvik Opcodes]: [http://pallergabor.uw.hu/androidblog/dalvik_opcodes.html]
+[Dex File Format]: [http://source.android.com/tech/dalvik/dex-format.html]
+
+
+Known exploits
+
+string decryption
+    ID function
+    performing decryption
+
+Obfuscation
+    String mangling
+    obfuscation techniques
+    reflective invocation
+
+Module Based
+    matching modules
+    coalescing
+
+Library Analysis
+    White/black listing known libraries
