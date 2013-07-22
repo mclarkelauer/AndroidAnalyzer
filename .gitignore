@@ -1,7 +1,8 @@
 *.pyc
 *.xml
 temp/*
-
+*.json
+*.p
 
 *.iml
 
