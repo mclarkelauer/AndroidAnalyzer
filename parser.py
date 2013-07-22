@@ -12,6 +12,11 @@ import log
 import util
 
 def ParseSmaliCode(content):
+    """
+
+    @param content:
+    @return:
+    """
     smali_class = {}
     smaliClassName = content.readline()
     smali_class['ClassName'] = smaliClassName.split(' ')[-1][:-1]
@@ -40,37 +45,37 @@ def ParseSmaliCode(content):
                 field['Name'] = line.split('=')[0].rstrip().split(' ')[-1].split(':')[0]
                 field['Type'] = line.split('=')[0].rstrip().split(' ')[-1].split(':')[1][:-1]
                 smali_class['Fields'].append(field)
-                pass
             elif line.startswith('.method'):
                 method = {}
                 method['MethodName'] = line.split(' ')[-1][:-1]
                 method['Keywords'] = line.split(' ')[1:-1]
                 method['Returns'] = line.split(')')[-1]
                 method['Parameters'] = line.split('(')[-1].split(')')[0]
-                smaliCode = []
                 method['Invokes'] = []
                 method['LibCalls'] = []
                 method['ConstStrings'] = []
                 method['Dependencies'] = []
-                #print  smali_class['ClassName'] + ":" + method['MethodName']
                 method['Code'] = []
                 method['Code'].append(line)
                 methodLine = content.readline().lstrip()
                 while not methodLine.startswith('.end method'):
-                    method['Code'].append(methodLine)
                     if "ClassLoader" in methodLine:
                         smali_class["Loader"].append(methodLine)
                     invokes = {}
                     if not methodLine == "\n":
-                        smaliCode += ''.join(methodLine)
+                        method['Code'] += ''.join(methodLine)
                     if methodLine.startswith('invoke'):
                         invokes['Type'] = methodLine.split(' ')[0]
-                        invokes['Class'] = methodLine.split('}')[1][1:].split('-')[0]
-                        method['Dependencies'].append(methodLine.split('}')[1][1:].split('-')[0])
-                        invokes['Function'] = methodLine.split('}')[1].split('>')[1]
-                        if 'Ljava' in invokes['Class'] or \
-                            'Landroid' in invokes['Class'] or \
-                            'Ljavax' in invokes['Class']:
+                        invokes['Class'] = \
+                            methodLine.split('}')[1][1:].split('-')[0]
+                        method['Dependencies']\
+                            .append(methodLine.split('}')[1][1:]
+                                .split('-')[0])
+                        invokes['Function'] = \
+                            methodLine.split('}')[1].split('>')[1]
+                        if (('Ljava' in invokes['Class']) or
+                                ('Landroid' in invokes['Class']) or
+                                ('Ljavax' in invokes['Class'])):
                             method['LibCalls'].append(invokes)
                         else:
                             method['Invokes'].append(invokes)
@@ -89,13 +94,14 @@ def ParseSmaliCode(content):
         sys.exit(1)
     return smali_class
 
+
 def parseDir(path):
     # set up class and results dictionary
     log.info("Performing recursive search for smali files")
     classes = {}
-    for smali in util.find_files(path,'*.smali'):
+    for smali in util.find_files(path, '*.smali'):
         log.info("Parsing " + smali)
-        f = open(smali,'r')
+        f = open(smali, 'r')
         smali_class = ParseSmaliCode(f)
         classes[smali_class['ClassName']] = smali_class
     log.info("Parsing Complete")

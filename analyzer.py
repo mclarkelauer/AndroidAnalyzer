@@ -54,13 +54,7 @@ def is_valid_url(url):
         r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
         r'(?::\d+)?'  # optional port
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-    regex_nohttp = re.compile(
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'  # domain...
-        r'localhost|'  # localhost...
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
-        r'(?::\d+)?'  # optional port
-        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-    return url is not None and (regex.search(url) or regex_nohttp(url))
+    return url is not None and regex.search(url)
 
 def generateDependencyGraph(class_list):
     for cl in class_list:
@@ -212,11 +206,13 @@ def queriesDevID(classes):
     return False
 
 def canShutDownDevice(classes):
+
     if findInvocationSites(classes,"goToSleep").__len__ > 0:
         return True
     return False
 
 def getConstStrings(classes):
+    log.info("Analysis : Subroutine - get Const Strings")
     conststrings = []
     for cl in classes:
         for method in classes[cl]["Methods"]:
@@ -225,14 +221,16 @@ def getConstStrings(classes):
     return conststrings
 
 def getUrls(classes):
+    log.info("Analysis: Const String URLs")
     constStrings = getConstStrings(classes)
     urlStrings = []
     for s in constStrings:
         if is_valid_url(s):
             urlStrings.append(s)
-    return s
+    return urlStrings
 
 def usesFlurry(alldeps):
+    log.info("Analysis: Flurry Check")
     for d in alldeps:
         if "flurry" in d:
             return True
@@ -242,6 +240,7 @@ def usesFlurry(alldeps):
 def analyzeParsedSmali(classes):
     # Begin Analysis
     results = {}
+    log.info("Analysis Started")
     alldeps,internaldeps,externaldeps,unknownDeps = getDependencies(classes)
     results["Unknown External Dependencies"] = unknownDeps
     results["Uses Class Loaders"] = classLoaderAnalysis(classes)
@@ -255,7 +254,6 @@ def analyzeParsedSmali(classes):
     results["Queries Device ID"] = queriesDevID(classes)
     results["Uses Flurry"] = usesFlurry(alldeps)
     results["Const String URLs"] = getUrls(classes)
-    #results["Constant Strings"] = getConstStrings(classes)
     log.saveLibrariesToPickle(alldeps)
     return results
 

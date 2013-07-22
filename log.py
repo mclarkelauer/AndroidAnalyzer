@@ -9,6 +9,7 @@ __status__ = 'Development'
 from datetime import datetime
 import os,sys,profile,traceback
 import pickle
+import inspect
 
 logString = "[DexScope:"
 
@@ -36,8 +37,10 @@ def critical(message):
     printLogMessage(message,level=4)
 
 def printLogMessage(message,level= 0):
+    frm = inspect.stack()[2]
+    mod = inspect.getmodule((frm[0]))
     if logLevel[level]['On']:
-        log  = logString + str(datetime.now()) + "] " + logLevel[level]["Type"] + ":" + message
+        log  = logString + mod.__name__ + ":" + str(datetime.now()) + "] " + logLevel[level]["Type"] + ":" + message
         print log
 
 def saveLibrariesToPickle(Deps):
