@@ -42,4 +42,4 @@ def Disassemble(filepath):
     __ConfirmDisassembly()
 
 def CleanUpTempDir():
-    pass
+    os.system("rm -rf temp")

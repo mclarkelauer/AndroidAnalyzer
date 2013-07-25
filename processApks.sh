@@ -2,5 +2,5 @@
 
 for d in ~/Downloads/android-samples/*.apk
 do
-	python DexScope.py $d
+	python DexScope.py -a $d
 done
