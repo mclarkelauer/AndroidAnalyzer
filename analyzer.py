@@ -14,6 +14,7 @@ import traceback
 import re
 import pickle
 import log
+import libraryList
 
 """
 This file contains the analysis logic. The basic order of operations is detailed below.
@@ -236,6 +237,15 @@ def usesFlurry(alldeps):
             return True
     return False
 
+def libraryMatching(alldeps):
+    libs = []
+    for d in alldeps:
+        for l in libraryList.libs:
+            if d.startswith(l) and \
+                not any(a['name'] == l for a in libs):
+                libs.append({"name":l,
+                             "type":libraryList.libs[l]})
+    return libs
 
 def analyzeParsedSmali(classes):
     # Begin Analysis
@@ -254,6 +264,7 @@ def analyzeParsedSmali(classes):
     results["Queries Device ID"] = queriesDevID(classes)
     results["Uses Flurry"] = usesFlurry(alldeps)
     results["Const String URLs"] = getUrls(classes)
+    results["Packages in Application"] = libraryMatching(alldeps)
     log.saveLibrariesToPickle(alldeps)
     return results
 

@@ -69,6 +69,7 @@ def RunDexScope(config):
         SmaliDir = "temp"
         results['File Format'] = "apk"
         apktool.Disassemble(config["Input"])
+        #TODO : Perform manifest analysis if APK file
     elif config["FileType"] == "DEX":
         SmaliDir = "temp"
         results['File Format'] = "dex"
