@@ -253,7 +253,7 @@ def constStringAnalysis(classes):
         else:
             uncategorizedStrings.append(s)
     return {"URLs":urlStrings,
-            "IPs":IPStrings.
+            "IPs":IPStrings,
             "Uncategorized":uncategorizedStrings}
 
 
