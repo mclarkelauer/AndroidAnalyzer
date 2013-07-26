@@ -230,6 +230,33 @@ def getUrls(classes):
             urlStrings.append(s)
     return urlStrings
 
+def valid_ip(address):
+    try:
+        host_bytes = address.split('.')
+        valid = [int(b) for b in host_bytes]
+        valid = [b for b in valid if b >= 0 and b<=255]
+        return len(host_bytes) == 4 and len(valid) == 4
+    except:
+        return False
+
+def constStringAnalysis(classes):
+    log.info("Analysis: Const String URLs/IPs/uncategorized")
+    constStrings = getConstStrings(classes)
+    urlStrings = []
+    IPStrings = []
+    uncategorizedStrings = []
+    for s in constStrings:
+        if is_valid_url(s):
+            urlStrings.append(s)
+        elif valid_ip(s):
+            IPStrings.append(s)
+        else:
+            uncategorizedStrings.append(s)
+    return {"URLs":urlStrings,
+            "IPs":IPStrings.
+            "Uncategorized":uncategorizedStrings}
+
+
 def usesFlurry(alldeps):
     log.info("Analysis: Flurry Check")
     for d in alldeps:
@@ -263,7 +290,7 @@ def analyzeParsedSmali(classes):
     results["Uses Java Crypto Library"] = checksForJavaCryptoLib(internaldeps)
     results["Queries Device ID"] = queriesDevID(classes)
     results["Uses Flurry"] = usesFlurry(alldeps)
-    results["Const String URLs"] = getUrls(classes)
+    results["Const Strings"] = constStringAnalysis(classes)
     results["Packages in Application"] = libraryMatching(alldeps)
     log.saveLibrariesToPickle(alldeps)
     return results
