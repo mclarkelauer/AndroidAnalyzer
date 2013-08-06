@@ -48,32 +48,12 @@ adverts = {
     "Millennialmedia":"Millenial Media Advertising",
     }
 
-def is_valid_url(url):
-    regex = re.compile(
-        r'^https?://'  # http:// or https://
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'  # domain...
-        r'localhost|'  # localhost...
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
-        r'(?::\d+)?'  # optional port
-        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-    return url is not None and regex.search(url)
-
 def generateDependencyGraph(class_list):
     for cl in class_list:
         pass
 
 def __SeparateModules():
     pass
-
-def findFunctionsBySignature(classes,funcSig):
-    methods=[]
-    for cl in classes:
-        for method in classes[cl]['Methods']:
-            #print funcSig['Returns'] + " == " + method['Returns']
-            if funcSig['Parameters'] in method['Parameters'] \
-                and funcSig['Returns'] in method['Returns']:
-                methods.append(method['MethodName'])
-    return methods
 
 def getDependencies(classes):
     tlds = ["com","org"]
@@ -125,23 +105,6 @@ def findModuleByName(classes):
 def containsModule(classes):
     pass
 
-def findStringEncryption(classes):
-    methodParams = {'Returns':'Ljava/lang/String;','Parameters':'Ljava/lang/String;'}
-    methods = findFunctionsBySignature(classes,methodParams)
-    for m in methods:
-        findInvocationSites(classes,m)
-
-def findInvocationSites(classes,method):
-    invokedMethods = []
-    invocationsSites = []
-    for cl in classes:
-        for meth in classes[cl]['Methods']:
-            for invocations in meth['Invokes']:
-                if method in invocations['Function']:
-                    invokedMethods.append(invocations['Function'])
-                    invocationsSites.append(meth["MethodName"])
-    return invocationsSites , invokedMethods
-
 def findMethodsWithDependencies(classes,dep):
     for cl in classes:
         for meth in classes[cl]['Methods']:
@@ -164,47 +127,7 @@ def ModuleAnalysis(alldeps):
 def trackingModuleAnalysis(classes):
     pass
 
-def containsDalvikSystemCalls(alldeps):
-    for d in alldeps:
-        if d.startswith("dalvik"):
-            return True
-    return False
-
 def depListContainsCall(self):
-    return False
-
-def classLoaderAnalysis(classes):
-    for cl in classes:
-        if classes[cl]['Loader']:
-            return True
-    return False
-
-def checksForNetworkConnections(classes):
-    if findInvocationSites(classes,"getActiveNetworkInfo").__len__ > 0 or \
-       findInvocationSites(classes,"isConnectedOrConnecting").__len__ > 0:
-        return True
-    return False
-
-def UsesExternalStorage(classes):
-    if findInvocationSites(classes,"getExternalStorageDirectory").__len__ > 0:
-        return True
-    return False
-
-def checksForReflection(alldeps):
-    for d in alldeps:
-        if d.startswith("java/lang/reflect"):
-            return True
-    return False
-
-def checksForJavaCryptoLib(alldeps):
-    for d in alldeps:
-        if d.startswith("javax/crypto"):
-            return True
-    return False
-
-def queriesDevID(classes):
-    if findInvocationSites(classes,"getDeviceId").__len__ > 0:
-        return True
     return False
 
 def canShutDownDevice(classes):
@@ -212,15 +135,6 @@ def canShutDownDevice(classes):
     if findInvocationSites(classes,"goToSleep").__len__ > 0:
         return True
     return False
-
-def getConstStrings(classes):
-    log.info("Analysis : Subroutine - get Const Strings")
-    conststrings = []
-    for cl in classes:
-        for method in classes[cl]["Methods"]:
-            for s in method["ConstStrings"]:
-                    conststrings.append(s)
-    return conststrings
 
 def getUrls(classes):
     log.info("Analysis: Const String URLs")
@@ -231,69 +145,12 @@ def getUrls(classes):
             urlStrings.append(s)
     return urlStrings
 
-def valid_ip(address):
-    try:
-        host_bytes = address.split('.')
-        valid = [int(b) for b in host_bytes]
-        valid = [b for b in valid if b >= 0 and b<=255]
-        return len(host_bytes) == 4 and len(valid) == 4
-    except:
-        return False
-
-def constStringAnalysis(classes):
-    log.info("Analysis: Const String URLs/IPs/uncategorized")
-    constStrings = getConstStrings(classes)
-    urlStrings = []
-    IPStrings = []
-    uncategorizedStrings = []
-    for s in constStrings:
-        if is_valid_url(s):
-            urlStrings.append(s)
-        elif valid_ip(s):
-            IPStrings.append(s)
-        else:
-            uncategorizedStrings.append(s)
-    return {"URLs":urlStrings,
-            "IPs":IPStrings,
-            "Uncategorized":uncategorizedStrings}
-
-
-def usesFlurry(alldeps):
-    log.info("Analysis: Flurry Check")
-    for d in alldeps:
-        if "flurry" in d:
-            return True
-    return False
-
-def libraryMatching(alldeps):
-    libs = []
-    for d in alldeps:
-        for l in libraryList.libs:
-            if d.startswith(l) and \
-                not any(a['name'] == l for a in libs):
-                libs.append({"name":l,
-                             "type":libraryList.libs[l]})
-    return libs
-
 def analyzeParsedSmali(classes):
     # Begin Analysis
     log.info("Analysis Started")
-    results = Analysis.runAnalysis()
     dependencies = {}
     dependencies["all"],dependencies["internal"],dependencies["external"],dependencies["unknown"] = getDependencies(classes)
-    results["Unknown External Dependencies"] = dependencies["unknown"]
-    results["Uses Class Loaders"] = classLoaderAnalysis(classes)
-    results["Uses possible string decryption"] = "Unknown"#findStringEncryption(classes)
-    results["Contains Dalvik System Calls"] = containsDalvikSystemCalls(dependencies["all"])
-    results["Checks for Network Connection"] = checksForNetworkConnections(classes)
-    results["Library Apis Used"] = dependencies["internal"]
-    results["Uses External Storage"] = UsesExternalStorage(classes)
-    results["Uses Reflection"] = checksForReflection(dependencies["internal"])
-    results["Uses Java Crypto Library"] = checksForJavaCryptoLib(dependencies["internal"])
-    results["Queries Device ID"] = queriesDevID(classes)
-    results["Uses Flurry"] = usesFlurry(dependencies["all"])
-    results["Const Strings"] = constStringAnalysis(classes)
-    results["Packages in Application"] = libraryMatching(dependencies["all"])
+    results = Analysis.runAnalysis(classes,dependencies)
     log.saveLibrariesToPickle(dependencies["all"])
     return results
 

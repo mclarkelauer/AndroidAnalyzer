@@ -6,10 +6,12 @@ __date__ = 8 / 1 / 13
 __version__ = '0.1'
 __status__ = 'Development'
 
-name = "EmptyAnalysisRoutine"
-description = "Does Nothing"
+import log
 
-result = "No Results"
+name = "unknownExternalDependencies"
+description = "Gets Unknown External Dependencies"
+
+result = []
 
 def getName():
     return name
@@ -18,10 +20,10 @@ def getDescription():
     return description
 
 def getResults(results):
-    results["Empty Analysis"] = result
+    results["Unknown External Dependencies"] = result
     return results
 
 def run(dependencies,classes):
-    pass
-
-
+    global result
+    log.info("Analysis: Unknown External Dependencies Check")
+    result = dependencies["unknown"]

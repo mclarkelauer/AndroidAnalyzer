@@ -27,12 +27,12 @@ def getPlugins():
 def loadPlugin(plugin):
     return imp.load_module(RoutineName, *plugin["info"])
 
-def runAnalysis():
+def runAnalysis(classes,dependencies):
     results = {}
     for i in getPlugins():
         print("Loading routine " + i["name"])
         plugin = loadPlugin(i)
-        plugin.run()
+        plugin.run(dependencies,classes)
         results = plugin.getResults(results)
     return results
 

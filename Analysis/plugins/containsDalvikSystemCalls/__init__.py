@@ -6,8 +6,10 @@ __date__ = 8 / 1 / 13
 __version__ = '0.1'
 __status__ = 'Development'
 
-name = "EmptyAnalysisRoutine"
-description = "Does Nothing"
+import log
+
+name = "containsDalvikSystemCalls"
+description = "Checks for Dalvik system calls"
 
 result = "No Results"
 
@@ -18,10 +20,15 @@ def getDescription():
     return description
 
 def getResults(results):
-    results["Empty Analysis"] = result
+    results["Contains Dalvik System Calls"] = result
     return results
 
 def run(dependencies,classes):
-    pass
+    global result
+    log.info("Analysis: Dalvik System Call Check")
+    for d in dependencies["all"]:
+        if d.startswith("dalvik"):
+            result = True
+    result = False
 
 

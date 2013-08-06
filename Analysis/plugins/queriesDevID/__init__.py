@@ -6,8 +6,11 @@ __date__ = 8 / 1 / 13
 __version__ = '0.1'
 __status__ = 'Development'
 
-name = "EmptyAnalysisRoutine"
-description = "Does Nothing"
+import log
+import analysisUtils
+
+name = "queriesDevID"
+description = "Determines whether the device ID is queried"
 
 result = "No Results"
 
@@ -18,10 +21,12 @@ def getDescription():
     return description
 
 def getResults(results):
-    results["Empty Analysis"] = result
+    results["Queries Device ID"] = result
     return results
 
 def run(dependencies,classes):
-    pass
-
-
+    global result
+    log.info("Analysis: Device ID Query Check")
+    if analysisUtils.findInvocationSites(classes,"getDeviceId").__len__ > 0:
+        result = True
+    result = False

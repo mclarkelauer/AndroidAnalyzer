@@ -6,10 +6,12 @@ __date__ = 8 / 1 / 13
 __version__ = '0.1'
 __status__ = 'Development'
 
-name = "EmptyAnalysisRoutine"
-description = "Does Nothing"
+import log
 
-result = "No Results"
+name = "libraryApisUsed"
+description = "Gets the used library apis"
+
+result = []
 
 def getName():
     return name
@@ -18,10 +20,10 @@ def getDescription():
     return description
 
 def getResults(results):
-    results["Empty Analysis"] = result
+    results["Library Apis Used"] = result
     return results
 
 def run(dependencies,classes):
-    pass
-
-
+    global result
+    log.info("Analysis: Library Api Check")
+    result = dependencies["internal"]

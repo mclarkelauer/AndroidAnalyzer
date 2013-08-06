@@ -6,8 +6,10 @@ __date__ = 8 / 1 / 13
 __version__ = '0.1'
 __status__ = 'Development'
 
-name = "EmptyAnalysisRoutine"
-description = "Does Nothing"
+import log
+
+name = "checksForJavaCryptoLib"
+description = "Determines whether a Java crypto library is used"
 
 result = "No Results"
 
@@ -18,10 +20,13 @@ def getDescription():
     return description
 
 def getResults(results):
-    results["Empty Analysis"] = result
+    results["Uses Java Crypto Library"] = result
     return results
 
 def run(dependencies,classes):
-    pass
-
-
+    global result
+    log.info("Analysis: Java Crypto Libs")
+    for d in dependencies["internal"]:
+        if d.startswith("javax/crypto"):
+            result = True
+    result = False

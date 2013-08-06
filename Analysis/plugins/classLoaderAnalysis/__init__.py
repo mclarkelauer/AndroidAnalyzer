@@ -6,8 +6,10 @@ __date__ = 8 / 1 / 13
 __version__ = '0.1'
 __status__ = 'Development'
 
-name = "EmptyAnalysisRoutine"
-description = "Does Nothing"
+import log
+
+name = "classLoaderAnalysis"
+description = "Checks if class loaders are used"
 
 result = "No Results"
 
@@ -18,10 +20,14 @@ def getDescription():
     return description
 
 def getResults(results):
-    results["Empty Analysis"] = result
+    results["Uses Class Loaders"] = result
     return results
 
 def run(dependencies,classes):
-    pass
-
+    global result
+    log.info("Analysis: Class Loader Check")
+    for cl in classes:
+        if classes[cl]['Loader']:
+            result = True
+    result = False
 

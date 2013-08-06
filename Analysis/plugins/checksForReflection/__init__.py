@@ -6,8 +6,10 @@ __date__ = 8 / 1 / 13
 __version__ = '0.1'
 __status__ = 'Development'
 
-name = "EmptyAnalysisRoutine"
-description = "Does Nothing"
+import log
+
+name = "checksForReflection"
+description = "Determines whether reflection is used"
 
 result = "No Results"
 
@@ -18,10 +20,14 @@ def getDescription():
     return description
 
 def getResults(results):
-    results["Empty Analysis"] = result
+    results["Uses Reflection"] = result
     return results
 
 def run(dependencies,classes):
-    pass
-
+    global result
+    log.info("Analysis: Reflection Check")
+    for d in dependencies["internal"]:
+        if d.startswith("java/lang/reflect"):
+            result = True
+    result = False
 
