@@ -15,6 +15,7 @@ import re
 import pickle
 import log
 import libraryList
+import Analysis
 
 """
 This file contains the analysis logic. The basic order of operations is detailed below.
@@ -276,23 +277,24 @@ def libraryMatching(alldeps):
 
 def analyzeParsedSmali(classes):
     # Begin Analysis
-    results = {}
     log.info("Analysis Started")
-    alldeps,internaldeps,externaldeps,unknownDeps = getDependencies(classes)
-    results["Unknown External Dependencies"] = unknownDeps
+    results = Analysis.runAnalysis()
+    dependencies = {}
+    dependencies["all"],dependencies["internal"],dependencies["external"],dependencies["unknown"] = getDependencies(classes)
+    results["Unknown External Dependencies"] = dependencies["unknown"]
     results["Uses Class Loaders"] = classLoaderAnalysis(classes)
     results["Uses possible string decryption"] = "Unknown"#findStringEncryption(classes)
-    results["Contains Dalvik System Calls"] = containsDalvikSystemCalls(alldeps)
+    results["Contains Dalvik System Calls"] = containsDalvikSystemCalls(dependencies["all"])
     results["Checks for Network Connection"] = checksForNetworkConnections(classes)
-    results["Library Apis Used"] = internaldeps
+    results["Library Apis Used"] = dependencies["internal"]
     results["Uses External Storage"] = UsesExternalStorage(classes)
-    results["Uses Reflection"] = checksForReflection(internaldeps)
-    results["Uses Java Crypto Library"] = checksForJavaCryptoLib(internaldeps)
+    results["Uses Reflection"] = checksForReflection(dependencies["internal"])
+    results["Uses Java Crypto Library"] = checksForJavaCryptoLib(dependencies["internal"])
     results["Queries Device ID"] = queriesDevID(classes)
-    results["Uses Flurry"] = usesFlurry(alldeps)
+    results["Uses Flurry"] = usesFlurry(dependencies["all"])
     results["Const Strings"] = constStringAnalysis(classes)
-    results["Packages in Application"] = libraryMatching(alldeps)
-    log.saveLibrariesToPickle(alldeps)
+    results["Packages in Application"] = libraryMatching(dependencies["all"])
+    log.saveLibrariesToPickle(dependencies["all"])
     return results
 
 

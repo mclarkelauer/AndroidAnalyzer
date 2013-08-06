@@ -10,13 +10,14 @@ import sys,os
 import disassembly,parser,analyzer,log,apktool
 import json
 from datetime import datetime
+import Analysis
 
 def parseCommandLineArgs(args):
     config = {}
     error = False
     errorMessage = ''
 
-    while len(args) > 1:
+    while len(args) > 0:
         head = args[0] # get head list element
         args = args[1:] # get tail list element
         if head == '-a': #apk case
@@ -43,6 +44,9 @@ def parseCommandLineArgs(args):
         elif head == "-o": # set output file
             config["OutputFile"] = args[0]
             args = args[1:]
+        elif head == "-p": #print available analysis routines
+            Analysis.printAvailableAnalysisRoutines()
+            sys.exit(0)
         else:
             error = True
             errorMessage = "Error Unknown option used :" + head
