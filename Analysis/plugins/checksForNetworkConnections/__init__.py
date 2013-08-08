@@ -7,12 +7,12 @@ __version__ = '0.1'
 __status__ = 'Development'
 
 import log
-import analysisUtils
+from Analysis import analysisUtils
 
 name = "checksForNetworkConnections"
 description = "Determines whether network connection is checked"
 
-result = "No Results"
+result = False
 
 def getName():
     return name
@@ -30,6 +30,5 @@ def run(dependencies,classes):
     if analysisUtils.findInvocationSites(classes,"getActiveNetworkInfo").__len__ > 0 or \
        analysisUtils.findInvocationSites(classes,"isConnectedOrConnecting").__len__ > 0:
         result = True
-    result = False
 
 

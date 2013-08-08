@@ -11,7 +11,7 @@ import log
 name = "checksForJavaCryptoLib"
 description = "Determines whether a Java crypto library is used"
 
-result = "No Results"
+result = False
 
 def getName():
     return name
@@ -29,4 +29,3 @@ def run(dependencies,classes):
     for d in dependencies["internal"]:
         if d.startswith("javax/crypto"):
             result = True
-    result = False

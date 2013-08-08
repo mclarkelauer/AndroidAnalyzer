@@ -7,6 +7,7 @@ __version__ = '0.1'
 __status__ = 'Development'
 
 import re
+import log
 
 def findFunctionsBySignature(classes,funcSig):
     methods=[]

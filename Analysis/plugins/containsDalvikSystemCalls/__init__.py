@@ -11,7 +11,7 @@ import log
 name = "containsDalvikSystemCalls"
 description = "Checks for Dalvik system calls"
 
-result = "No Results"
+result = False
 
 def getName():
     return name
@@ -29,6 +29,6 @@ def run(dependencies,classes):
     for d in dependencies["all"]:
         if d.startswith("dalvik"):
             result = True
-    result = False
+
 
 

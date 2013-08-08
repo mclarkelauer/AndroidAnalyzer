@@ -11,7 +11,7 @@ import log
 name = "checksForReflection"
 description = "Determines whether reflection is used"
 
-result = "No Results"
+result = False
 
 def getName():
     return name
@@ -29,5 +29,4 @@ def run(dependencies,classes):
     for d in dependencies["internal"]:
         if d.startswith("java/lang/reflect"):
             result = True
-    result = False
 

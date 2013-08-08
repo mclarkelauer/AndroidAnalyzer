@@ -97,7 +97,7 @@ def getDependencies(classes):
             libraryDeps.append(extDep)
         else:
             unknownExtDeps.append(extDep)
-    return set(externalDep)|set(internalDep), libraryDeps,set(externalDep) - set(internalDep),unknownExtDeps
+    return (set(externalDep)|set(internalDep)), libraryDeps,set(externalDep) - set(internalDep),unknownExtDeps
 
 def findModuleByName(classes):
     pass

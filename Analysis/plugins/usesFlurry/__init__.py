@@ -11,7 +11,7 @@ import log
 name = "usesFlurry"
 description = "Determines whether Flurry is used"
 
-result = "No Results"
+result = False
 
 def getName():
     return name
@@ -29,4 +29,4 @@ def run(dependencies,classes):
     for d in dependencies["all"]:
         if "flurry" in d:
             result = True
-    result = False
+

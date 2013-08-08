@@ -7,12 +7,13 @@ __version__ = '0.1'
 __status__ = 'Development'
 
 import log
-import analysisUtils
+from Analysis import analysisUtils
 
 name = "UsesExternalStorage"
 description = "Determines whether external storage is used"
 
-result = "No Results"
+result = False
+
 
 def getName():
     return name
@@ -29,5 +30,4 @@ def run(dependencies,classes):
     log.info("Analysis: External Storage Check")
     if analysisUtils.findInvocationSites(classes,"getExternalStorageDirectory").__len__ > 0:
         result = True
-    result = False
 

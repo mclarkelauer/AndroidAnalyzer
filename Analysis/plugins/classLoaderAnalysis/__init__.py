@@ -11,7 +11,7 @@ import log
 name = "classLoaderAnalysis"
 description = "Checks if class loaders are used"
 
-result = "No Results"
+result = False
 
 def getName():
     return name
@@ -29,5 +29,4 @@ def run(dependencies,classes):
     for cl in classes:
         if classes[cl]['Loader']:
             result = True
-    result = False
 

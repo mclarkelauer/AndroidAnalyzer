@@ -7,12 +7,12 @@ __version__ = '0.1'
 __status__ = 'Development'
 
 import log
-import analysisUtils
+from Analysis import analysisUtils
 
 name = "queriesDevID"
 description = "Determines whether the device ID is queried"
 
-result = "No Results"
+result = False
 
 def getName():
     return name
@@ -29,4 +29,4 @@ def run(dependencies,classes):
     log.info("Analysis: Device ID Query Check")
     if analysisUtils.findInvocationSites(classes,"getDeviceId").__len__ > 0:
         result = True
-    result = False
+

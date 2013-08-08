@@ -7,7 +7,7 @@ __version__ = '0.1'
 __status__ = 'Development'
 
 import log
-import analysisUtils
+from Analysis import analysisUtils
 
 name = "constStringAnalysis"
 description = "Gets Const Strings"
