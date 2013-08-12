@@ -1,5 +1,5 @@
 __author__ = 'Matt Clarke-Lauer'
-__email__ = 'mcl@ccs.neu.edu'
+__email__ = 'mclarkelauer@reversinglabs.com'
 __credits__ = ['Matt Clarke-Lauer']
 __date__ = 8 / 1 / 13
 
@@ -10,18 +10,21 @@ import log
 from Analysis import analysisUtils
 
 name = "findStringEncryption"
-description = "Checks if possible string decryption is used"
+description = "Checks if possible custom string decryption is used"
 
 result = "Unknown"
 
 def getName():
+    "return analysis name"
     return name
 
 def getDescription():
+    "return analysis description"
     return description
 
 def getResults(results):
-    results["Uses possible string decryption"] = result
+    global result
+    #results["Uses possible string decryption"] = result
     return results
 
 def run(dependencies,classes):

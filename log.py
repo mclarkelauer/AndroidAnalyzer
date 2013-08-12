@@ -1,5 +1,5 @@
 __author__ = 'Matt Clarke-Lauer'
-__email__ = 'mcl@ccs.neu.edu'
+__email__ = 'mclarkelauer@reversinglabs.com'
 __credits__ = ['Matt Clarke-Lauer']
 __date__ = 7 / 1 / 13
 

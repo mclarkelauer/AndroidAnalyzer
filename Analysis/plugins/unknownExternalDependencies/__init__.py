@@ -1,5 +1,5 @@
 __author__ = 'Matt Clarke-Lauer'
-__email__ = 'mcl@ccs.neu.edu'
+__email__ = 'mclarkelauer@reversinglabs.com'
 __credits__ = ['Matt Clarke-Lauer']
 __date__ = 8 / 1 / 13
 
@@ -14,9 +14,11 @@ description = "Gets Unknown External Dependencies"
 result = []
 
 def getName():
+    "return analysis name"
     return name
 
 def getDescription():
+    "return analysis description"
     return description
 
 def getResults(results):

@@ -1,5 +1,5 @@
 __author__ = 'Matt Clarke-Lauer'
-__email__ = 'mcl@ccs.neu.edu'
+__email__ = 'mclarkelauer@reversinglabs.com'
 __credits__ = ['Matt Clarke-Lauer']
 __date__ = 6 / 30 / 13
 
@@ -13,9 +13,7 @@ import util
 
 def ParseSmaliCode(content):
     """
-
-    @param content:
-    @return:
+    Parse smali code into python directory
     """
     smali_class = {}
     smaliClassName = content.readline()

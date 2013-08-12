@@ -1,5 +1,5 @@
 __author__ = 'Matt Clarke-Lauer'
-__email__ = 'mcl@ccs.neu.edu'
+__email__ = 'mclarkelauer@reversinglabs.com'
 __credits__ = ['Matt Clarke-Lauer']
 __date__ = 6 / 10 / 13
 
@@ -112,38 +112,11 @@ def findMethodsWithDependencies(classes,dep):
                 if dep in deps:
                     print classes[cl]
 
-def ModuleAnalysis(alldeps):
-    adModules = []
-    analyticModules = []
-    for dep in alldeps:
-        for m in adverts:
-            if m in dep:
-                adModules.append(m)
-        for m in analytics:
-            if m in dep:
-                analyticModules.append(m)
-    return adModules,analyticModules
-
-def trackingModuleAnalysis(classes):
-    pass
-
-def depListContainsCall(self):
-    return False
 
 def canShutDownDevice(classes):
-
     if findInvocationSites(classes,"goToSleep").__len__ > 0:
         return True
     return False
-
-def getUrls(classes):
-    log.info("Analysis: Const String URLs")
-    constStrings = getConstStrings(classes)
-    urlStrings = []
-    for s in constStrings:
-        if is_valid_url(s):
-            urlStrings.append(s)
-    return urlStrings
 
 def analyzeParsedSmali(classes):
     # Begin Analysis
