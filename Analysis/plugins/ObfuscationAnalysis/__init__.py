@@ -56,7 +56,7 @@ def detectProGuard(classes):
             if m["MethodName"].startswith("a("):
                 if "ProGuard" not in result["Obfuscator"]:
                     result["Obfuscator"].append("ProGuard")
-                    result['Contains ObfuscationAnalysis'] = True
+                    result['Contains Obfuscation'] = True
 
 
 def EntropyBasedDetection(classes):

@@ -57,3 +57,14 @@ def valid_ip(address):
         return len(host_bytes) == 4 and len(valid) == 4
     except:
         return False
+
+
+def findObjects(classes,object):
+    invokedMethods = []
+    invocationsSites = []
+    for cl in classes:
+        for meth in classes[cl]['Methods']:
+            for invocations in meth['Invokes']:
+                if object in invocations['Class']:
+                    print(invocations)
+    return invocationsSites , invokedMethods
