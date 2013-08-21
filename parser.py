@@ -19,6 +19,7 @@ def ParseSmaliCode(content):
     smaliClassName = content.readline()
     smali_class['ClassName'] = smaliClassName.split(' ')[-1][:-1]
     smali_class['Keywords'] = smaliClassName.split(' ')[1:-1]
+    smali_class['Metrics'] = {'Reflections':0,'Methods':0,'Invocations':0}
     smali_class['Methods'] = []
     smali_class['Fields'] = []
     smali_class['Loader'] = []
@@ -44,6 +45,7 @@ def ParseSmaliCode(content):
                 field['Type'] = line.split('=')[0].rstrip().split(' ')[-1].split(':')[1][:-1]
                 smali_class['Fields'].append(field)
             elif line.startswith('.method'):
+                smali_class['Metrics']['Methods']+= 1
                 method = {}
                 method['MethodName'] = line.split(' ')[-1][:-1]
                 method['Keywords'] = line.split(' ')[1:-1]
@@ -77,6 +79,9 @@ def ParseSmaliCode(content):
                             method['LibCalls'].append(invokes)
                         else:
                             method['Invokes'].append(invokes)
+                        smali_class['Metrics']['Invocations']+= 1
+                        if("reflect" in invokes['Function']):
+                            smali_class['Metrics']['Reflections']+= 1
                     elif methodLine.startswith('const-string'):
                         method['ConstStrings'].append(methodLine.split('"')[1])
                     methodLine = content.readline().lstrip()
