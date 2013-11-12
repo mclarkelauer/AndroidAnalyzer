@@ -16,6 +16,7 @@ Example analysis
 name = "Calculate String Entropy"
 description = "Calcualtes the average string entropy for a class and its methods"
 result = {}
+enabled = False
 
 def hist(source):
     hist = {}; l = 0;
@@ -51,7 +52,8 @@ def getDescription():
 
 def getResults(results):
     "add result of analysis to result dictionary"
-    results["Entropy Analysis"] = result
+    if enabled:
+        results["Entropy Analysis"] = result
     return results
 
 def run(dependencies,classes):

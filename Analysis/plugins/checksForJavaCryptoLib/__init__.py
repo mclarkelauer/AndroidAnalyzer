@@ -179,8 +179,17 @@ def run(dependencies,classes):
     #TODO : look for bouncycastle and different encryption standards
     global result
     log.info("Analysis: Java Crypto Libs")
+    result["Depends on Spongycastle"] = False
+    result["Depends on JavaX Crypto"] = False
     for d in dependencies["internal"]:
         if d.startswith("javax/crypto"):
             result["Depends on JavaX Crypto"] = True
+        if d.startswith("spongycastle"):
+            result["Depends on Spongycastle"] = True
+    for d in dependencies["external"]:
+        if d.startswith("javax/crypto"):
+            result["Depends on JavaX Crypto"] = True
+        if d.startswith("spongycastle"):
+            result["Depends on Spongycastle"] = True
 
-    result["Deep Analysis"]= analysisUtils.findObjects(classes,"javax/crypto")
+    #result["Deep Analysis"]= analysisUtils.findObjects(classes,"javax/crypto")

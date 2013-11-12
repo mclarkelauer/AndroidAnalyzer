@@ -53,6 +53,7 @@ def ParseSmaliCode(content):
                 method['Parameters'] = line.split('(')[-1].split(')')[0]
                 method['Invokes'] = []
                 method['LibCalls'] = []
+                method['Android API'] = []
                 method['ConstStrings'] = []
                 method['Dependencies'] = []
                 method['Code'] = []
@@ -73,6 +74,8 @@ def ParseSmaliCode(content):
                                 .split('-')[0])
                         invokes['Function'] = \
                             methodLine.split('}')[1].split('>')[1]
+                        if (('Landroid' in methodLine)):
+                            method["Android API"].append(methodLine)
                         if (('Ljava' in invokes['Class']) or
                                 ('Landroid' in invokes['Class']) or
                                 ('Ljavax' in invokes['Class'])):

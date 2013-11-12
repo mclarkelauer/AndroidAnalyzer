@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for d in ~/Downloads/android-samples/*.apk
+for d in ~/Desktop/apks/*.apk
 do
 	python DexScope.py -a $d
 done

@@ -10,10 +10,9 @@ __status__ = 'Development'
 Example analysis
 '''
 
-name = "Class Metrics"
-description = "Collect number of class metrics"
-result = {}
-enabled = False
+name = "EmptyAnalysisRoutine"
+description = "Does Nothing"
+result = []
 
 def getName():
     "return analysis name"
@@ -25,24 +24,23 @@ def getDescription():
 
 def getResults(results):
     "add result of analysis to result dictionary"
-    if enabled:
-        results["Class Metrics"]=result
+    results["Permissions"]=result
     return results
 
 def run(dependencies,classes):
+    " run analysis routine "
     import json
     json_data=open('./Resources/permission.json')
     data = json.load(json_data)
     for c in classes:
-        result[c] = classes[c]["Metrics"]
-        Methods = []
         for m in classes[c]['Methods']:
-            Methods.append({"Name":m["MethodName"],"APIs":m["Android API"],"Permissions":[]})
-            for api in Methods[-1]["APIs"]:
+            for api in m["Android API"]:
                 for d in data["api"]:
                     if d["android_class"] in api and d["method"] in api:
-                        Methods[-1]["Permissions"].append(d)
-        result[c]["Methods"] = Methods
+                        result.append(d)
+
+
+
 
 
 
