@@ -2,7 +2,7 @@ from __future__ import division
 import math
 
 __author__ = 'Matt Clarke-Lauer'
-__email__ = 'mclarkelauer@reversinglabs.com'
+__email__ = 'matt@clarkelauer.com'
 __credits__ = ['Matt Clarke-Lauer']
 __date__ = 8 / 1 / 13
 
