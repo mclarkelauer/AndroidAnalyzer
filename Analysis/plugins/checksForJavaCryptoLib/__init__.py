@@ -11,8 +11,8 @@ from Analysis import analysisUtils
 
 name = "checksForJavaCryptoLib"
 description = "Determines whether a Java crypto library is used"
-
 result = {}
+enabled = False
 
 androidCryptoAlgorithms = [
     "SHA512WithRSAEncryption",

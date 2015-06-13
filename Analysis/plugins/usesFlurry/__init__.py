@@ -10,6 +10,8 @@ import log
 
 name = "usesFlurry"
 description = "Determines whether Flurry is used"
+enabled = False
+
 
 result = False
 

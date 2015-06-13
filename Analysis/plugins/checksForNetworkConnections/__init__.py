@@ -11,7 +11,7 @@ from Analysis import analysisUtils
 
 name = "checksForNetworkConnections"
 description = "Determines whether network connection is checked"
-
+enabled = False
 result = False
 
 def getName():

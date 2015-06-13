@@ -11,6 +11,7 @@ from Analysis import analysisUtils
 
 name = "constStringAnalysis"
 description = "Gets Const Strings"
+enabled = False
 
 result = {}
 

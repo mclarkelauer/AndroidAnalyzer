@@ -10,6 +10,7 @@ import log
 
 name = "classLoaderAnalysis"
 description = "Checks if class loaders are used"
+enabled = False
 
 result = False
 

@@ -10,6 +10,7 @@ import log
 
 name = "libraryApisUsed"
 description = "Gets the used library apis"
+enabled = False
 
 result = []
 

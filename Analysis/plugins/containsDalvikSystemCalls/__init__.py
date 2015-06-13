@@ -10,6 +10,7 @@ import log
 
 name = "containsDalvikSystemCalls"
 description = "Checks for Dalvik system calls"
+enabled = False
 
 result = False
 

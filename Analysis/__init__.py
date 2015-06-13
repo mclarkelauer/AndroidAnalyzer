@@ -32,8 +32,13 @@ def runAnalysis(classes,dependencies):
     for i in getPlugins():
         print("Loading routine " + i["name"])
         plugin = loadPlugin(i)
-        plugin.run(dependencies,classes)
-        results = plugin.getResults(results)
+        if plugin.enabled:
+          print(i["name"] + " : Running")
+          plugin.run(dependencies,classes)
+          results = plugin.getResults(results)
+        else:
+          print(i["name"] + " : Disabled")
+    
     return results
 
 

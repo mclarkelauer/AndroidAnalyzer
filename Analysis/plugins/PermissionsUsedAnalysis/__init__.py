@@ -13,6 +13,7 @@ Example analysis
 name = "EmptyAnalysisRoutine"
 description = "Does Nothing"
 result = []
+enabled = False
 
 def getName():
     "return analysis name"

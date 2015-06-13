@@ -10,6 +10,8 @@ import log
 
 name = "unknownExternalDependencies"
 description = "Gets Unknown External Dependencies"
+enabled = False
+
 
 result = []
 

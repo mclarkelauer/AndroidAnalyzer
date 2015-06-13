@@ -25,9 +25,7 @@ def getDescription():
 
 def getResults(results):
     "add result of analysis to result dictionary"
-    if enabled:
-        results["Class Metrics"]=result
-    return results
+    results["Class Metrics"]=result
 
 def run(dependencies,classes):
     import json

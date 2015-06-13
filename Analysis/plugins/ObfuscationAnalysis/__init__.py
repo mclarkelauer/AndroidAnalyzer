@@ -21,6 +21,8 @@ import math
 
 name = "Obfuscation Analysis"
 description = "Heuristic Based Obfuscation Detection"
+enabled = False
+
 
 result = {"Contains Obfuscation":False,
           "Obfuscator": []}

@@ -17,6 +17,8 @@ from Analysis import analysisUtils
 
 name = "Storage Usage Analysis"
 description = "Analysis on storage usage"
+enabled = False
+
 
 result = {}
 

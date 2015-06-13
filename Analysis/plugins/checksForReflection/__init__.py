@@ -10,6 +10,7 @@ import log
 
 name = "checksForReflection"
 description = "Determines whether reflection is used"
+enabled = False
 
 result = False
 
