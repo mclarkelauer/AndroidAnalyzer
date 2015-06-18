@@ -10,6 +10,8 @@ import sys
 import traceback
 import log
 import util
+import pdb
+import subprocess
 
 def parseSmaliFiles(content):
     """
@@ -101,14 +103,29 @@ def parseSmaliFiles(content):
     return smali_class
 
 
+
+
 def parseDir(path):
     # set up class and results dictionary
     log.info("Performing recursive search for smali files")
     classes = {}
+    sharedobj_strings = {}
+
     for smali in util.find_files(path, '*.smali'):
+        continue
         log.info("Parsing " + smali)
         f = open(smali, 'r')
-        smali_class = ParseSmaliCode(f)
+        smali_class = parseSmaliFiles(f)
         classes[smali_class['ClassName']] = smali_class
+
+    for sharedobj in util.find_files(path, '*.so'):
+        log.info("Processing: " + sharedobj)
+        f = open(sharedobj, 'r')
+        smali_class = parseSmaliFiles(f)
+        sharedobj_strings[sharedobj] =  util.unique_strings_from_file(sharedobj)
+
+
     log.info("Parsing Complete")
-    return classes
+    return { 'classes' : classes,
+             'sharedobjs' : sharedobj_strings }
+

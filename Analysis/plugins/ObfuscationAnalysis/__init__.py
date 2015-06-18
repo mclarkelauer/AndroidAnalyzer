@@ -11,7 +11,7 @@ Obfuscation Analysis Routines
 -----------------------------
 Detects proguard based obfuscations using name heuristics
 
-Method : progaurd does method obfuscations using a sequence of
+Method : proguard does method obfuscations using a sequence of
 strings starting at 'a'. If we see an 'a' method, it is either
 or a lazy programmer who.
 '''
