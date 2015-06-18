@@ -8,6 +8,7 @@ __status__ = 'Development'
 
 import fnmatch
 import os
+import subprocess
 
 
 def find_files(directory, pattern):
@@ -23,3 +24,14 @@ def find_files(directory, pattern):
             if fnmatch.fnmatch(basename, pattern):
                 filename = os.path.join(root, basename)
                 yield filename
+
+def unique_strings_from_file(filename):
+    strings_cmdline = ["strings", filename]
+    sp = subprocess.Popen(strings_cmdline, stdout=subprocess.PIPE)
+    strs = []
+    for line in sp.stdout.readlines():
+        if line.strip() not in strs:
+            strs.append(line.strip())
+    return strs
+
+

@@ -7,11 +7,13 @@ __version__ = '0.1'
 __status__ = 'Development'
 
 apktoolPath = "Resources/"
-apktool = "apktool"
-apktoolCLI = apktoolPath + apktool + " d -f "
+apktool = "apktool.jar"
+
 
 import os
 import log
+import subprocess
+import shutil
 
 #TODO: Add support for custom output directory
 
@@ -36,10 +38,17 @@ def Disassemble(filepath):
     __CheckConfig()
     log.info("Starting APK Decompilation using APKTOOL")
     os.system("rm -rf temp;mkdir temp")
-    os.system(apktoolCLI + " " + filepath + " temp")
+    apktoolCLI = ["java", "-jar", apktoolPath + apktool, "d", '-o', 'temp', '-f', filepath]
+
+    sp = subprocess.call(apktoolCLI)
+    if sp > 0:
+        log.error("Error running: {0}\n".format(" ".join(apktoolCLI)))
+
     log.info("Decompiled resources written to Temp dir")
     #Perform Disassembly... throw exception on error caser
     __ConfirmDisassembly()
 
 def CleanUpTempDir():
-    os.system("rm -rf temp")
+    shutil.rmtree('temp')
+
+
