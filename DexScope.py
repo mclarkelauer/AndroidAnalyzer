@@ -11,6 +11,7 @@ import disassembly,parser,analyzer,log,apktool
 import json
 from datetime import datetime
 import Analysis
+import pdb
 
 def parseCommandLineArgs(args):
     config = {}
@@ -60,8 +61,8 @@ def parseCommandLineArgs(args):
         error = True
         errorMessage = "Error: File provided does not exist"
     if error:
-            print errorMessage
-            sys.exit(-1)
+        print errorMessage
+        sys.exit(-1)
     return config
 
 
@@ -83,7 +84,10 @@ def RunDexScope(config):
         results['File Format'] = "Recursive Directory Search"
     else:
         print "Error: Invalid file type, this should not happen contact " + __author__  + ":" + __email__
-    classes = parser.parseDir(SmaliDir)
+    parsed = parser.parseDir(SmaliDir)
+    classes = parsed['classes']
+    sharedobjs = parsed['sharedobjs']
+    pdb.set_trace()
     results['Time'] = str(datetime.now())
 
     results['File Name'] = config["Input"]

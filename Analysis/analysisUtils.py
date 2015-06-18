@@ -8,6 +8,7 @@ __status__ = 'Development'
 
 import re
 import log
+import subprocess
 
 def findFunctionsBySignature(classes,funcSig):
     methods=[]
@@ -46,7 +47,7 @@ def getConstStrings(classes):
     for cl in classes:
         for method in classes[cl]["Methods"]:
             for s in method["ConstStrings"]:
-                    conststrings.append(s)
+                conststrings.append(s)
     return conststrings
 
 def valid_ip(address):
@@ -68,3 +69,7 @@ def findObjects(classes,object):
                 if object in invocations['Class']:
                     print(invocations)
     return invocationsSites , invokedMethods
+
+
+
+
