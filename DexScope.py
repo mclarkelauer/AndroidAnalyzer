@@ -91,7 +91,7 @@ def RunDexScope(config):
     results['Time'] = str(datetime.now())
 
     results['File Name'] = config["Input"]
-    results['Analysis'] = analyzer.analyzeParsedSmali(classes)
+    results['Analysis'] = analyzer.analyzeParsedSmali(classes,sharedobjs)
     apktool.CleanUpTempDir()
 
     if "OutputFile" in config:

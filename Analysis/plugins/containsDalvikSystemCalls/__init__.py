@@ -26,7 +26,7 @@ def getResults(results):
     results["Contains Dalvik System Calls"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     log.info("Analysis: Dalvik System Call Check")
     for d in dependencies["all"]:

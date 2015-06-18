@@ -34,7 +34,7 @@ def getResults(results):
   results["Class Maps"] = result
   return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
   import pprint
   pp = pprint.PrettyPrinter(indent=2)
   pp.pprint(classes[classes.keys()[2]])

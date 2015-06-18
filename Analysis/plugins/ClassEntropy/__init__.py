@@ -56,7 +56,7 @@ def getResults(results):
         results["Entropy Analysis"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     for c in classes:
         (l,h) = hist(c[1:].split('/')[-1])

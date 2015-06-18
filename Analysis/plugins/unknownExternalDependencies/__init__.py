@@ -27,7 +27,7 @@ def getResults(results):
     results["Unknown External Dependencies"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     log.info("Analysis: Unknown External Dependencies Check")
     result = dependencies["unknown"]

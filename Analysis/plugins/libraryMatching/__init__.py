@@ -29,7 +29,7 @@ def getResults(results):
     results["Packages in Application"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     log.info("Analysis: Application Packages Check")
     libs = []

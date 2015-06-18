@@ -26,7 +26,7 @@ def getResults(results):
     results["Uses Class Loaders"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     log.info("Analysis: Class Loader Check")
     for cl in classes:

@@ -27,7 +27,7 @@ def getResults(results):
     results["Const Strings"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     log.info("Analysis: Const String URLs/IPs/uncategorized")
     constStrings = analysisUtils.getConstStrings(classes)

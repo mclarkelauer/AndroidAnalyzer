@@ -27,7 +27,7 @@ def getResults(results):
     "add result of analysis to result dictionary"
     results["Class Metrics"]=result
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     import json
     json_data=open('./Resources/permission.json')
     data = json.load(json_data)

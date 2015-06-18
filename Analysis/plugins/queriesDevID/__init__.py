@@ -28,7 +28,7 @@ def getResults(results):
     results["Queries Device ID"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     log.info("Analysis: Device ID Query Check")
     if analysisUtils.findInvocationSites(classes,"getDeviceId").__len__ > 0:

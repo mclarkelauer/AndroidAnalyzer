@@ -26,7 +26,7 @@ def getResults(results):
     results["Uses Reflection"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     log.info("Analysis: Reflection Check")
     for d in dependencies["internal"]:

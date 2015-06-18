@@ -79,7 +79,7 @@ def EntropyBasedDetection(classes):
 
 
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     detectProGuard(classes)
     #EntropyBasedDetection(classes) #Entropy based detection is a work in progress
 

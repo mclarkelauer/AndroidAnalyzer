@@ -27,14 +27,14 @@ def getPlugins():
 def loadPlugin(plugin):
     return imp.load_module(RoutineName, *plugin["info"])
 
-def runAnalysis(classes,dependencies):
+def runAnalysis(classes,dependencies, sharedobjs):
     results = {}
     for i in getPlugins():
         print("Loading routine " + i["name"])
         plugin = loadPlugin(i)
         if plugin.enabled:
           print(i["name"] + " : Running")
-          plugin.run(dependencies,classes)
+          plugin.run(dependencies,classes,sharedobjs)
           results = plugin.getResults(results)
         else:
           print(i["name"] + " : Disabled")

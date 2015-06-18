@@ -28,7 +28,7 @@ def getResults(results):
     results["Permissions"]=result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     " run analysis routine "
     import json
     json_data=open('./Resources/permission.json')

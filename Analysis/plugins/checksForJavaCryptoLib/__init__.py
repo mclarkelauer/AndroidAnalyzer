@@ -175,7 +175,7 @@ def getResults(results):
     results["Uses Java Crypto Library"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     #TODO : look for bouncycastle and different encryption standards
     global result
     log.info("Analysis: Java Crypto Libs")

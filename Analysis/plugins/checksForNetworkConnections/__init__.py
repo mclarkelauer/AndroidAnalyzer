@@ -26,7 +26,7 @@ def getResults(results):
     results["Checks for Network Connection"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     log.info("Analysis: Network Connection Check")
     if analysisUtils.findInvocationSites(classes,"getActiveNetworkInfo").__len__ > 0 or \

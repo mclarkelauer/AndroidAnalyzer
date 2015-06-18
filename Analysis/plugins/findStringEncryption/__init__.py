@@ -28,7 +28,7 @@ def getResults(results):
     #results["Uses possible string decryption"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     log.info("Analysis: String Decryption Check")
     methodParams = {'Returns':'Ljava/lang/String;','Parameters':'Ljava/lang/String;'}
     methods = analysisUtils.findFunctionsBySignature(classes,methodParams)

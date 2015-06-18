@@ -35,19 +35,6 @@ Future Features:
 knowngood =["java","javax","android","json","w3c","apache","xml","google","junit","dalvik","xmlpull"]
 SmaliDataTypes = ['F','I','J','C','D','S','B','V']
 
-# TODO: ADD MORE ANALYTICS AND ADVERT NETWORKS
-analytics = {
-    "flurry":"Flurry Analytics"
-}
-
-adverts = {
-    "wiyun/ad":"Wiyun Mobile Advertising Service",
-    "zhuamob":"Zhuamob Ad SDK",
-    "ignitevision":"Ignite Vision Ad Network",
-    "adwo":"adwo",
-    "Millennialmedia":"Millenial Media Advertising",
-    }
-
 def generateDependencyGraph(class_list):
     for cl in class_list:
         pass
@@ -112,18 +99,12 @@ def findMethodsWithDependencies(classes,dep):
                 if dep in deps:
                     print classes[cl]
 
-
-def canShutDownDevice(classes):
-    if findInvocationSites(classes,"goToSleep").__len__ > 0:
-        return True
-    return False
-
-def analyzeParsedSmali(classes):
+def analyzeParsedSmali(classes,sharedobjs):
     # Begin Analysis
     log.info("Analysis Started")
     dependencies = {}
     dependencies["all"],dependencies["internal"],dependencies["external"],dependencies["unknown"] = getDependencies(classes)
-    results = Analysis.runAnalysis(classes,dependencies)
+    results = Analysis.runAnalysis(classes,dependencies,sharedobjs)
     log.saveLibrariesToPickle(dependencies["all"])
     return results
 

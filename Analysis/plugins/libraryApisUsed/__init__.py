@@ -26,7 +26,7 @@ def getResults(results):
     results["Library Apis Used"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     log.info("Analysis: Library Api Check")
     result = dependencies["internal"]

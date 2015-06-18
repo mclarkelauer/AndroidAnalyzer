@@ -58,7 +58,7 @@ def usesRoot(classes):
     if analysisUtils.findInvocationSites(classes,"getRootDirectory").__len__ > 0:
         result["Root"] = True
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     global result
     log.info("Analysis: Storage Check")
     usesExternalStorage(classes)

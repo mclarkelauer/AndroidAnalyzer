@@ -28,7 +28,7 @@ def getResults(results):
     #results["Empty Analysis"] = result
     return results
 
-def run(dependencies,classes):
+def run(classes, dependencies, sharedobjs):
     " run analysis routine "
     pass
 
