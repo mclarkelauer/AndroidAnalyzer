@@ -115,13 +115,13 @@ def parseDir(path):
         continue
         log.info("Parsing " + smali)
         f = open(smali, 'r')
-        smali_class = ParseSmaliCode(f)
+        smali_class = parseSmaliFiles(f)
         classes[smali_class['ClassName']] = smali_class
 
     for sharedobj in util.find_files(path, '*.so'):
         log.info("Processing: " + sharedobj)
         f = open(sharedobj, 'r')
-        smali_class = ParseSmaliCode(f)
+        smali_class = parseSmaliFiles(f)
         sharedobj_strings[sharedobj] =  util.unique_strings_from_file(sharedobj)
 
 

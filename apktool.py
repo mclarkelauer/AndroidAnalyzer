@@ -37,7 +37,10 @@ def __ConfirmDisassembly():
 def Disassemble(filepath):
     __CheckConfig()
     log.info("Starting APK Decompilation using APKTOOL")
-    os.system("rm -rf temp;mkdir temp")
+    if os.path.exists('temp'):
+        shutil.rmtree('temp')
+
+    os.mkdir('temp')
     apktoolCLI = ["java", "-jar", apktoolPath + apktool, "d", '-o', 'temp', '-f', filepath]
 
     sp = subprocess.call(apktoolCLI)

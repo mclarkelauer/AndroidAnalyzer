@@ -6,7 +6,10 @@ __date__ = 6 / 10 / 13
 __version__ = '0.1'
 __status__ = 'Development'
 
-import sys,os
+import sys
+import os
+import shutil
+import subprocess
 
 '''
 Contains logic for decompressing apk files and parsing them
@@ -17,7 +20,7 @@ baksmaliPath = 'Resources/'
 baksmali = "baksmali-1.4.2-dev.jar"
 smali = "smali-1.4.2-dev.jar"
 
-baksmaliCLI = 'java -jar ' + baksmaliPath + baksmali
+baksmaliCLI = ['java', '-jar', baksmaliPath, baksmali]
 
 def __CheckConfig():
     '''
@@ -36,10 +39,23 @@ def __ConfirmDisassembly():
 
 def Disassemble(dexFile):
     __CheckConfig()
-    os.system("rm -rf temp;mkdir temp")
-    os.system(baksmaliCLI + " " + dexFile + " -o temp")
+
+    shutil.rmtree('temp')
+    os.mkdir('temp')
+
+    baksmaliCLI.append(dexFile)
+    baksmaliCLI.append('-o')
+    baksmaliCLI.append('temp')
+
+    sp = subprocess.call(baksmaliCLI)
+    if sp > 0:
+        log.error("Error running: {0}\n".format(" ".join(baksmaliCLI)))
+
+
     #Perform Disassembly... throw exception on error case
     __ConfirmDisassembly()
 
 def CleanUpTempDir():
-    os.system("rm -rf temp")
+    if os.path.exists('temp'):
+        shutil.rmtree('temp')
+

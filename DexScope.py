@@ -87,7 +87,6 @@ def RunDexScope(config):
     parsed = parser.parseDir(SmaliDir)
     classes = parsed['classes']
     sharedobjs = parsed['sharedobjs']
-    pdb.set_trace()
     results['Time'] = str(datetime.now())
 
     results['File Name'] = config["Input"]
