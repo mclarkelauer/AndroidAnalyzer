@@ -11,7 +11,7 @@ import traceback
 import log
 import util
 
-def ParseSmaliCode(content):
+def parseSmaliFiles(content):
     """
     Parse smali code into python directory
     """
