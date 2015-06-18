@@ -12,6 +12,7 @@ import json
 from datetime import datetime
 import Analysis
 import pdb
+from docopt import docopt
 
 def parseCommandLineArgs(args):
     config = {}
