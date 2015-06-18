@@ -38,7 +38,6 @@ def runAnalysis(classes,dependencies):
           results = plugin.getResults(results)
         else:
           print(i["name"] + " : Disabled")
-    
     return results
 
 
