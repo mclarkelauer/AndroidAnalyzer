@@ -98,7 +98,10 @@ def RunDexScope(config):
         log.info("Writing Output to " + config["OutputFile"])
         logfile = open(config["OutputFile"],"w")
     else:
-        logfile = open(config["Input"].split('/')[-1] + ".json","w")
+        if not os.path.exists('results'):
+            os.mkdir('results')
+        pdb.set_trace()
+        logfile = open("results/{1}".format(os.path.sep, config["Input"].split('/')[-1] + ".json"), "w")
     jsonlog = str(json.dumps(results,indent=1))
     logfile.write(jsonlog)
     logfile.close()

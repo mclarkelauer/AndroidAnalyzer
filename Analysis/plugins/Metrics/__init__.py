@@ -13,7 +13,6 @@ Example analysis
 name = "Class Metrics"
 description = "Collect number of class metrics"
 result = {}
-enabled = False
 
 def getName():
     "return analysis name"

@@ -18,7 +18,6 @@ Generate class signature that can be used to identify it
 name = "ClassMapGenerator"
 description = "Generate Class signature"
 result = []
-enabled = False
 writeClassMapToFile = False
 
 def getName():

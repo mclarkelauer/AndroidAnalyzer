@@ -11,7 +11,6 @@ from Analysis import analysisUtils
 
 name = "queriesDevID"
 description = "Determines whether the device ID is queried"
-enabled = False
 
 
 result = False

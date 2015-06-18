@@ -21,7 +21,6 @@ import math
 
 name = "Obfuscation Analysis"
 description = "Heuristic Based Obfuscation Detection"
-enabled = False
 
 
 result = {"Contains Obfuscation":False,
@@ -76,6 +75,7 @@ def EntropyBasedDetection(classes):
     methodAverage = reduce(lambda x, y: x + y, methodNameEntropy) / len(methodNameEntropy)
     classAverage = reduce(lambda x, y: x + y, classNameEntropy) / len(classNameEntropy)
     # TODO : Run on dexguard applications and determine numerical heuristic
+    # TODO (Michael): we need a histogram instead of check for a/b/c
 
 
 

@@ -1,9 +1,10 @@
 *.pyc
 *.xml
 temp/*
-*.json
 *.p
 
 *.iml
 
 .idea/.name
+results/
+

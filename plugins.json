@@ -1,0 +1,62 @@
+{
+    "checksForJavaCryptoLib" : {
+        "enabled": false
+    },
+    "checksForReflection" : {
+        "enabled": false
+    },
+    "classLoaderAnalysis" : {
+        "enabled": false
+    },
+    "constStringAnalysis" : {
+        "enabled": false
+    },
+    "EmptyAnalysisRoutine" : {
+        "enabled": false
+    },
+    "libraryApisUsed" : {
+        "enabled": false
+    },
+    "Metrics" : {
+        "enabled": false
+    },
+    "PermissionsUsedAnalysis" : {
+        "enabled": false
+    },
+    "unknownExternalDependencies" : {
+        "enabled": false
+    },
+    "usesFlurry" : {
+        "enabled": false
+    },
+    "checksForNetworkConnections" : {
+        "enabled": false
+    },
+    "ClassEntropy" : {
+        "enabled": false
+    },
+    "ClassMapping" : {
+        "enabled": false
+    },
+    "containsDalvikSystemCalls" : {
+        "enabled": false
+    },
+    "findStringEncryption" : {
+        "enabled": false
+    },
+    "libraryMatching" : {
+        "enabled": false
+    },
+    "ObfuscationAnalysis" : {
+        "enabled": false
+    },
+    "queriesDevID" : {
+        "enabled": false
+    },
+    "UsesExternalStorage" : {
+        "enabled": false
+    }
+}
+
+
+

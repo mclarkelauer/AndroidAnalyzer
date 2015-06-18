@@ -11,7 +11,6 @@ from Analysis import analysisUtils
 
 name = "findStringEncryption"
 description = "Checks if possible custom string decryption is used"
-enabled = False
 
 result = "Unknown"
 

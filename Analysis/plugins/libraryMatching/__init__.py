@@ -11,7 +11,6 @@ import libraryList
 
 name = "libraryMatching"
 description = "Gets packages in application"
-enabled = False
 
 result = []
 

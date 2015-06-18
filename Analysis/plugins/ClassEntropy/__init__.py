@@ -16,7 +16,6 @@ Example analysis
 name = "Calculate String Entropy"
 description = "Calcualtes the average string entropy for a class and its methods"
 result = {}
-enabled = False
 
 def hist(source):
     hist = {}; l = 0;
