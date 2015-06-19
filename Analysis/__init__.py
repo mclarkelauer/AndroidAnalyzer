@@ -10,28 +10,40 @@ import imp
 import os
 import json
 import sys
+import log
 import pdb
 
 
-AnalysisFolder = "./Analysis/plugins"
 RoutineName = "__init__"
 
 
-plugins_conf = json.loads(open('plugins.json').read())
+try:
+    plugins_conf = json.loads(open('plugins.json').read())
+    config = json.loads(open('config.json').read())
+except Exception as e:
+    log.error("Couldn't load config files")
+    sys.exit(1)
 
+#AnalysisFolder = "./Analysis/plugins"
+AnalysisFolders = config['plugin_path']
 
 # 
 # This can be configured via plugins.conf
 #
 def getPlugins():
     plugins = []
-    possibleplugins = os.listdir(AnalysisFolder)
+    possibleplugins = {} # name => folder, name collisions will be overwritten.
 
-    for plugin_name in possibleplugins:
-        location = os.path.join(AnalysisFolder, plugin_name)
+    for folder in AnalysisFolders:
+        for plugin in os.listdir(folder):
+            possibleplugins[plugin] = folder
+
+    for plugin_name in possibleplugins.keys():
+        location = os.path.join(possibleplugins[plugin_name], plugin_name)
+
         if not os.path.isdir(location) or not RoutineName + ".py" in os.listdir(location):
             continue
-        info = imp.find_module(plugin_name, [AnalysisFolder])
+        info = imp.find_module(plugin_name, [possibleplugins[plugin_name]])
 
         # By default we enable all we find in the plugins folder,
         # if configuration is missing we default to enable it.

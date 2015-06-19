@@ -15,7 +15,11 @@ import pdb
 from docopt import docopt
 
 def parseCommandLineArgs(args):
-    config = {}
+    try:
+        config = json.loads(open('config.json').read())
+    except Exception as e:
+        log.error("Couldn't load config file, aborting\n")
+        sys.exit(1)
     error = False
     errorMessage = ''
 
@@ -74,12 +78,12 @@ def RunDexScope(config):
     if config["FileType"] == "APK":
         SmaliDir = "temp"
         results['File Format'] = "apk"
-        apktool.Disassemble(config["Input"])
+        apktool.Disassemble(config, config["Input"])
         #TODO : Perform manifest analysis if APK file
     elif config["FileType"] == "DEX":
         SmaliDir = "temp"
         results['File Format'] = "dex"
-        disassembly.Disassemble(config["Input"])
+        disassembly.Disassemble(config, config["Input"])
     elif config["FileType"] == "DIR":
         SmaliDir = config["Input"]
         results['File Format'] = "Recursive Directory Search"
@@ -92,19 +96,19 @@ def RunDexScope(config):
 
     results['File Name'] = config["Input"]
     results['Analysis'] = analyzer.analyzeParsedSmali(classes,sharedobjs)
-    apktool.CleanUpTempDir()
+    apktool.CleanUpTempDir(config)
 
     if "OutputFile" in config:
         log.info("Writing Output to " + config["OutputFile"])
         logfile = open(config["OutputFile"],"w")
     else:
-        if not os.path.exists('results'):
-            os.mkdir('results')
-        pdb.set_trace()
-        logfile = open("results/{1}".format(os.path.sep, config["Input"].split('/')[-1] + ".json"), "w")
+        if not os.path.exists(config['results_dir']):
+            os.mkdir(config['results_dir'])
+        logfile = open("{0}{1}{2}".format(config['results_dir'], os.path.sep, config["Input"].split('/')[-1] + ".json"), "w")
     jsonlog = str(json.dumps(results,indent=1))
     logfile.write(jsonlog)
     logfile.close()
+
 
 
 

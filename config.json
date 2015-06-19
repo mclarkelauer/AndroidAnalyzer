@@ -1,0 +1,5 @@
+{
+    "plugin_path": ["Analysis/plugins", "private_analysis"],
+    "unpack_dir": "temp",
+    "results_dir": "results"
+}

@@ -34,14 +34,15 @@ def __ConfirmDisassembly():
     #TODO: Check if the smali files have been created
     return True
 
-def Disassemble(filepath):
+def Disassemble(config, filepath):
     __CheckConfig()
     log.info("Starting APK Decompilation using APKTOOL")
-    if os.path.exists('temp'):
-        shutil.rmtree('temp')
 
-    os.mkdir('temp')
-    apktoolCLI = ["java", "-jar", apktoolPath + apktool, "d", '-o', 'temp', '-f', filepath]
+    if os.path.exists(config['unpack_dir']):
+        shutil.rmtree(config['unpack_dir'])
+
+    os.mkdir(config['unpack_dir'])
+    apktoolCLI = ["java", "-jar", apktoolPath + apktool, "d", '-o', config['unpack_dir'], '-f', filepath]
 
     sp = subprocess.call(apktoolCLI)
     if sp > 0:
@@ -51,7 +52,7 @@ def Disassemble(filepath):
     #Perform Disassembly... throw exception on error caser
     __ConfirmDisassembly()
 
-def CleanUpTempDir():
-    shutil.rmtree('temp')
+def CleanUpTempDir(config):
+    shutil.rmtree(config['unpack_dir'])
 
 

@@ -37,7 +37,7 @@ def __ConfirmDisassembly():
     # Check if the smali files have been created
     pass
 
-def Disassemble(dexFile):
+def Disassemble(config, dexFile):
     __CheckConfig()
 
     shutil.rmtree('temp')
